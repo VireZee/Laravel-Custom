@@ -19,7 +19,7 @@ class VerifyController extends Controller
             ->orWhere('verify_token', $r->verify_token)
             ->first();
         Mail::to($user->email)->send(new EmailVerification($user, $user->verify_token));
-        return redirect()->route('verify.view');
+        return redirect()->route('verify.index');
     }
     function verify($verify_token)
     {
@@ -28,7 +28,7 @@ class VerifyController extends Controller
             $user->verified = now()->format('d F Y, h:i:s.u A');
             $user->verify_token = null;
             $user->save();
-            return redirect()->route('verify');
+            return redirect()->route('verified');
         } else {
             return view('auth.invalid');
         }

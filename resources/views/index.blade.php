@@ -15,7 +15,7 @@
     <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
         <div class="container-fluid d-flex justify-content-end">
             <button type="button" class="btn btn-success me-2">Login</button>
-            <a href="{{ route('register.view') }}">
+            <a href="{{ route('register.index') }}">
                 <button type="button" class="btn btn-success">Register</button>
             </a>
         </div>

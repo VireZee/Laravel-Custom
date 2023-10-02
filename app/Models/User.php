@@ -23,7 +23,9 @@ class User extends Authenticatable
         'remember_token'
     ];
     protected $hidden = [
-        'password'
+        'password',
+        'verify_token',
+        'remember_token'
     ];
     protected $casts = [
         'name' => 'string',

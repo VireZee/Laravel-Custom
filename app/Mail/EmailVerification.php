@@ -15,7 +15,7 @@ class EmailVerification extends Mailable
     function __construct(User $user)
     {
         $this->user = $user;
-        $this->verifyLink = route('verify.view', ['verify_token' => $user->verify_token]);
+        $this->verifyLink = route('verify.index', ['verify_token' => $user->verify_token]);
     }
     function envelope(): Envelope
     {

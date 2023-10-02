@@ -34,7 +34,7 @@ class RegisterController extends Controller
             'password.min' => 'The password must be at least 4 characters.',
             'role.in' => 'Select a valid role.'
         ]);
-        $verifyToken = Str::random(75);
+        $verify_token = Str::random(4096);
         $user = new User([
             'name' => $r->input('name'),
             'username' => $r->input('username'),
@@ -42,10 +42,10 @@ class RegisterController extends Controller
             'password' => Hash::make($r->input('password')),
             'role' => $r->input('role'),
         ]);
-        $user->verify_token = $verifyToken;
+        $user->verify_token = $verify_token;
         $user->created = now()->format('d F Y, h:i:s.u A');
         $user->save();
-        Mail::to($user->email)->send(new EmailVerification($user, $verifyToken));
-        return redirect()->route('verify.view');
+        Mail::to($user->email)->send(new EmailVerification($user, $verify_token));
+        return redirect()->route('verify.index');
     }
 }
