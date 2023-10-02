@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Mail\EmailVerification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -45,7 +44,10 @@ class RegisterController extends Controller
         $user->verify_token = $verify_token;
         $user->created = now()->format('d F Y, h:i:s.u A');
         $user->save();
-        Mail::to($user->email)->send(new EmailVerification($user, $verify_token));
+        Mail::send('auth.notice', ['verify_token' => $verify_token], function ($message) use ($r) {
+            $message->to($r->email);
+            $message->subject('Email Verification');
+        });
         return redirect()->route('verify.index');
     }
 }

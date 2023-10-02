@@ -18,7 +18,6 @@ class VerifyController extends Controller
         $user = User::where('email', $r->email)
             ->orWhere('verify_token', $r->verify_token)
             ->first();
-        Mail::to($user->email)->send(new EmailVerification($user, $user->verify_token));
         return redirect()->route('verify.index');
     }
     function verify($verify_token)
