@@ -18,7 +18,15 @@ class VerifyController extends Controller
         $user = User::where('email', $r->email)
             ->orWhere('verify_token', $r->verify_token)
             ->first();
-        return redirect()->route('verify.index');
+        if ($user) {
+            Mail::send('auth.notice', ['verify_token' => $r->verify_token], function ($message) use ($r) {
+                $message->to($r->email);
+                $message->subject('Email Verification');
+            });
+            return redirect()->route('verify.index')->with('verify_token', $r->verify_token);
+        } else {
+            return redirect()->route('verify.index')->with('error', 'User not found.');
+        }
     }
     function verify($verify_token)
     {
@@ -32,7 +40,8 @@ class VerifyController extends Controller
             return view('auth.invalid');
         }
     }
-    function verified() {
+    function verified()
+    {
         return view('auth.verified');
     }
 }
