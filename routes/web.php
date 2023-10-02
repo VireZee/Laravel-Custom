@@ -21,5 +21,5 @@ Route::get('register', [RegisterController::class, 'index'])->name('register.vie
 Route::post('register', [RegisterController::class, 'register'])->name('register');
 Route::get('verify', [VerifyController::class, 'index'])->name('verify.view');
 Route::post('verify', [VerifyController::class, 'reverify'])->name('reverify');
-Route::get('verify/{token}', [VerifyController::class, 'verify'])->name('verify');
+Route::get('verify?verify_token={verify_token}', [VerifyController::class, 'verify'])->name('verify');
 Route::get('verified', [VerifyController::class, 'verified'])->name('verified');

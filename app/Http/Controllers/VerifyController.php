@@ -21,9 +21,9 @@ class VerifyController extends Controller
         Mail::to($user->email)->send(new EmailVerification($user, $user->verify_token));
         return redirect()->route('verify.view');
     }
-    function verify($token)
+    function verify($verify_token)
     {
-        $user = User::where('verify_token', $token)->first();
+        $user = User::where('verify_token', $verify_token)->first();
         if ($user) {
             $user->verified = now()->format('d F Y, h:i:s.u A');
             $user->verify_token = null;
