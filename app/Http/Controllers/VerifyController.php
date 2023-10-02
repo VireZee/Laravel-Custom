@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Mail\EmailVerification;
 use Illuminate\Support\Facades\Mail;
 
 class VerifyController extends Controller
@@ -36,8 +35,12 @@ class VerifyController extends Controller
             $user->verify_token = null;
             $user->save();
             return redirect()->route('verified');
-        } else {
+        } else if ($verify_token !== $user->verify_token) {
             return view('auth.invalid');
+        } else if ($user->verify_token !== null) {
+            return view('auth.already.verified');
+        } else {
+            return redirect()->back()->with('error', 'User not found.');
         }
     }
     function verified()
