@@ -1,9 +1,9 @@
 @extends('index')
-@section('title', 'Verify')
+@section('title', 'Verified')
 @section('content')
 <div class="container">
     <div class="alert alert-success">
-        <p>Email verified!</p>
+        <p>Email verified.</p>
     </div>
 </div>
 @endsection

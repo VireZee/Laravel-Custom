@@ -26,7 +26,7 @@ class EmailVerification extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'auth.verify',
+            view: 'auth.notice',
             with: ['verify_token' => $this->verifyLink]
         );
     }

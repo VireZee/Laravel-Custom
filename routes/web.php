@@ -20,4 +20,6 @@ Route::get('', [UserController::class, 'index'])->name('index');
 Route::get('register', [RegisterController::class, 'index'])->name('register.view');
 Route::post('register', [RegisterController::class, 'register'])->name('register');
 Route::get('verify', [VerifyController::class, 'index'])->name('verify.view');
-Route::get('verify', [VerifyController::class, 'index']);
+Route::post('verify', [VerifyController::class, 'reverify'])->name('reverify');
+Route::get('verify/{token}', [VerifyController::class, 'verify'])->name('verify');
+Route::get('verified', [VerifyController::class, 'verified'])->name('verified');
