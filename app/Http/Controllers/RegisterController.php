@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Mail\EmailVerification;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
     function index()
     {
-        return view('register');
+        return view('auth.register');
     }
     function register(Request $r)
     {
-        $val = $r->validate([
+        $r->validate([
             'name' => 'required',
             'username' => 'required|unique:users',
             'email' => 'required|email|unique:users',
@@ -31,15 +34,18 @@ class RegisterController extends Controller
             'password.min' => 'The password must be at least 4 characters.',
             'role.in' => 'Select a valid role.'
         ]);
+        $verifyToken = Str::random(75);
         $user = new User([
             'name' => $r->input('name'),
             'username' => $r->input('username'),
             'email' => $r->input('email'),
             'password' => Hash::make($r->input('password')),
-            'role' => $r->input('role')
+            'role' => $r->input('role'),
         ]);
+        $user->verify_token = $verifyToken;
         $user->created = now()->format('d F Y, h:i:s.u A');
         $user->save();
-        return redirect()->route('index');
+        Mail::to($user->email)->send(new EmailVerification($user, $verifyToken));
+        return redirect()->route('verify.view');
     }
 }

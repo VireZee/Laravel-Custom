@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VerifyController;
 use App\Http\Controllers\RegisterController;
 
 /*
@@ -18,3 +19,5 @@ use App\Http\Controllers\RegisterController;
 Route::get('', [UserController::class, 'index'])->name('index');
 Route::get('register', [RegisterController::class, 'index'])->name('register.view');
 Route::post('register', [RegisterController::class, 'register'])->name('register');
+Route::get('verify', [VerifyController::class, 'index'])->name('verify.view');
+Route::get('verify', [VerifyController::class, 'index']);

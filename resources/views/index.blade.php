@@ -21,7 +21,12 @@
         </div>
     </nav>
     <main>
+        @guest
         @yield('content')
+        @endguest
+        @auth
+            <h1>Hi</h1>
+        @endauth
     </main>
 </body>
 </html>

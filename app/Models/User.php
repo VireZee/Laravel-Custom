@@ -15,10 +15,12 @@ class User extends Authenticatable
         'password',
         'role',
         'created',
-        'verified'
+        'verified',
     ];
     protected $guarded = [
-        'user_id'
+        'user_id',
+        'verify_token',
+        'remember_token'
     ];
     protected $hidden = [
         'password'
@@ -29,7 +31,9 @@ class User extends Authenticatable
         'password' => 'hashed',
         'role' => 'string',
         'created' => 'string',
-        'verified' => 'string'
+        'verified' => 'string',
+        'verify_token' => 'string',
+        'remember_token' => 'string'
     ];
     protected $appends = [
         'profile_photo_url'
