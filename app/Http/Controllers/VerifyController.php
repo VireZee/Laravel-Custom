@@ -26,7 +26,7 @@ class VerifyController extends Controller
         $user = User::where('verify_token', $token)->first();
         if ($user) {
             $user->verified = now()->format('d F Y, h:i:s.u A');
-            unset($user->verify_token);
+            $user->verify_token = null;
             $user->save();
             return redirect()->route('verify');
         } else {
