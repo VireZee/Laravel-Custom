@@ -44,7 +44,7 @@ class RegisterController extends Controller
         $user->verify_token = $verify_token;
         $user->created = now()->format('d F Y, h:i:s.u A');
         $user->save();
-        Mail::send('auth.notice', ['verify_token' => $verify_token], function ($message) use ($r) {
+        Mail::send('email.notice', ['verify_token' => $verify_token], function ($message) use ($r) {
             $message->to($r->email);
             $message->subject('Email Verification');
         });

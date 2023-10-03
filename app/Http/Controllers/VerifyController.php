@@ -11,12 +11,12 @@ class VerifyController extends Controller
     function index(Request $r)
     {
         $r->session()->get('verify_token');
-        return view('auth.verify', ['verify_token' => $r->verify_token]);
+        return view('verification.verify', ['verify_token' => $r->verify_token]);
     }
     function reverify(Request $r)
     {
         User::where('verify_token', $r->verify_token)->first();
-        Mail::send('auth.notice', ['verify_token' => $r->verify_token], function ($message) use ($r) {
+        Mail::send('email.notice', ['verify_token' => $r->verify_token], function ($message) use ($r) {
             $message->to($r->email);
             $message->subject('Email Verification');
         });
@@ -32,15 +32,15 @@ class VerifyController extends Controller
             $user->save();
             return redirect()->route('verified');
         } else if ($verify_token !== $user->verify_token) {
-            return view('auth.invalid');
+            return view('verification.invalid');
         } else if ($user->is_verified == true) {
-            return view('auth.already.verified');
+            return view('verification.already.verified');
         } else {
             return redirect()->route('verify.index')->with('error', 'User not found.');
         }
     }
     function verified()
     {
-        return view('auth.verified');
+        return view('verification.verified');
     }
 }
