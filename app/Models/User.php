@@ -14,11 +14,12 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'created',
-        'verified',
     ];
     protected $guarded = [
         'user_id',
+        'created',
+        'is_verified',
+        'verified',
         'verify_token',
         'remember_token'
     ];
@@ -33,6 +34,7 @@ class User extends Authenticatable
         'password' => 'hashed',
         'role' => 'string',
         'created' => 'string',
+        'is_verified' => 'boolean',
         'verified' => 'string',
         'verify_token' => 'string',
         'remember_token' => 'string'

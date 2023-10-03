@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('role', 10);
             $table->string('profile_photo_path', 4096)->nullable();
             $table->string('created', 40);
+            $table->boolean('is_verified')->default(false);
             $table->string('verified', 40)->nullable();
             $table->string('verify_token', 4096)->nullable();
             $table->string('remember_token', 4096)->nullable();

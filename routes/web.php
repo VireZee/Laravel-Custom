@@ -12,7 +12,7 @@ Route::prefix('register')->group(function () {
 });
 Route::prefix('verify')->group(function () {
     Route::get('', [VerifyController::class, 'index'])->name('verify.index');
-    Route::post('', [VerifyController::class, 'reverify'])->name('reverify');
+    Route::post('reverify', [VerifyController::class, 'reverify'])->name('reverify');
     Route::get('{verify_token}', [VerifyController::class, 'verify'])->name('verify');
 });
 Route::get('verified', [VerifyController::class, 'verified'])->name('verified');
