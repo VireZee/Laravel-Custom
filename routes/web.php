@@ -10,7 +10,7 @@ Route::prefix('register')->group(function () {
     Route::get('', [RegisterController::class, 'index'])->name('register.index');
     Route::post('', [RegisterController::class, 'register'])->name('register');
 });
-Route::prefix('verify')->group(function () {
+Route::prefix('verify')->middleware(['auth'])->group(function () {
     Route::get('', [VerifyController::class, 'index'])->name('verify.index');
     Route::post('reverify', [VerifyController::class, 'reverify'])->name('reverify');
     Route::get('{verify_token}', [VerifyController::class, 'verify'])->name('verify');
