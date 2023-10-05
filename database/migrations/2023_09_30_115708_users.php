@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('created', 40);
             $table->boolean('is_verified')->default(false);
             $table->string('verified', 40)->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('verify_token', 4096)->nullable();
             $table->string('remember_token', 4096)->nullable();
         });
